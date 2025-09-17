@@ -1,4 +1,4 @@
-﻿Aarhus Universitet – Institut for Elektro- og Computerteknologi – SW4SWT 
+﻿*Aarhus Universitet – Institut for Elektro- og Computerteknologi – SW4SWT* 
 
 # Specifikation af Hand-in 2 
 
@@ -141,11 +141,17 @@ Fif til test:
 1. Jeres commit- og build-historik skal vise, at I har arbejdet efter Continuous Integration under hele forløbet. Sæt derfor jeres repo og pipeline op så tidligt som muligt 
 
 ## 4  Resurser 
-På [https://gitlab.au.dk/au-ece-swt/swt-student](https://gitlab.au.dk/au-ece-swt/swt-student/-/tree/main/hand-ins/handin-two/src?ref_type=heads) i *src* folderen under *handin-two* forfindes et antal csharp filer.
+I dette repo er vedlagt en solution med tre projekter: 
 
-Filen StationControl.cs, der viser skelettet til implementering af en tilstandsmaskine, med illustration af en enkelt transition trigger. Betragt det som legacy kode, der ikke er lavet helt i henhold til de principper, I lærer her på kurset. 
+* MobileChargingStation.Lib: Et Class library med filstruktur efter klassernes funktion. *Class library stiller funktionalitet til rådighed, men har ingen main()* 
+* MobileChargingStation.ConsoleApp: Consol applikations projekt som benytter klasser fra MobileChargingStation.Lib og implementerer *main()*
+* MobileChargingStation.Lib.Test: Et testprojekt som tester MobileChargingStation.Lib
 
-I filen IUsbCharger.cs finder man følgende definition på event args og interface:
+Der forefindes enkelte source kodefiler i de forskellige projekter, så der er lidt at komme i gang på. 
+
+Filen *StationControl.cs* viser skelettet til implementering af en tilstandsmaskine, med illustration af en enkelt transition trigger. Betragt det som legacy kode, der ikke er lavet helt i henhold til de principper, I lærer her på kurset. 
+
+Filen *IUsbCharger.cs* indeholder følgende definition på event args og interface:
 
 ```C#
 public class CurrentEventArgs : EventArgs 
@@ -172,33 +178,28 @@ public interface IUsbCharger
   void StopCharge();
 }
 ``` 
-*CurrentEventArgs* og interfacet *IUsbCharger* **skal** I bruge i jeres design og kode. 
+`CurrentEventArgs` og interfacet `IUsbCharger` **skal** I bruge til jeres design og kode. 
 
 !["System.EventArgs"](images/IUsbChargerCD.png)
 *Figur 5 Klassediagram for hjælpekode til USB Chargeren* 
 
-Derudover ligger der en fil UsbChargerSimulator.cs med kode for en UsbChargerSimulator, der kan simulere opladning, forbindelse og overload. 
+Derudover ligger der en fil *UsbChargerSimulator.cs* som implementerer en simuleret version af `IUsbCharger`. Den simulerer opladning, forbindelse og overload. Den skal benyttes i konsolapplikationen, da vi jo ikke har en rigtig USB lader til rådighed. Den skal **ikke** bruges som fake til test af klasser som er afhængige af `IUsbCharger`.
 
-Den implementerer selvfølgelig interfacet *IUsbCharger* til en hardwaredriver for en USB chip, der kan nogle af de ting, der skal bruges. 
+`UsbChargerSimulator` kan bruges som den er. Den **simulerer** opladningsprocessen for en telefon, fordelt over 20 minutter. 
 
-Den kan bruges som den er, måske bortset fra, at den skal flyttes eller kopieres ind i jeres eget namespace. Den **simulerer** opladningsprocessen for en telefon, fordelt over 20 minutter. 
+Filen *Program.cs* indeholder skelettet til koden for en konsolapplikationen. Den kan bruges som udgangspunkt for den endelige app. Det er også tilladt at lave sin egen app. 
 
-Denne kan bruges i den **endelige** app, og til at lave eksperimenter med i forhold til jeres egen kode. Men da den simulerer en opladning på 20 minutter, er den **ikke egnet til test af de andre klasser**. Den er altså ikke en test-fake. 
-
-Der er en fil Program.cs med skelettet til koden for en console app, der kan bruges som udgangspunkt for den endelige app. Det er også tilladt at lave sin egen app. 
-
-Der er også en fil TestUsbChargerSimulator.cs med unit test af UsbChargerSimulator. Denne kan man lade sig inspirere af, hvad angår principper for test af events og timere. Men det er **ikke** jeres opgave at teste UsbChargerSimulator. 
+Endelig er der filen *TestUsbChargerSimulator.cs* som indeholder unit tests til `UsbChargerSimulator`. Denne kan man lade sig inspirere af, hvad angår principper for test af events og timere. Men det er **ikke** jeres opgave at teste UsbChargerSimulator. 
 
 ## 5 Evaluering af løsning
 
-Hand-in bedømmes ved peer-evaluering efter 6 overordnede punkter som hver især kan udløse 0-2 points:
-* Ikke opfyldt (0 point)
-* Delvist opfyldt (1 point)
-* Opfyldt (2 point)
+Hand-in bedømmes ved peer-evaluering i FeedbackFruits. Opgaven beståes hvis den samlede bedømmelse er >= 85%
 
-De enkelte review punkter vægtes i FeedbackFruits som vist i parantes ud for hvert review punkt. I FeedbackFruits tildeles desuden point for at have give peer-reviews (op til 24 points).
+Bedømmelsen baserer sig på:
+* Evnen til at reviewe medstuderende (24%)
+* Evnen til at løse opgaven (76%) 
 
-Review punkterne er som følger:
+Evnen til at løse opgaven vurderes på basis af nedenstående review punkter:
 
 ### 5.1 Is the content of the hand-in ok? (8%)
 The zip delivered is a release with a version number that contains: 
