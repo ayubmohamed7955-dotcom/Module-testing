@@ -122,11 +122,12 @@ Fif til designet:
 
 ### 3.2 Krav til Visual Studio solution, GitLab repo og arbejdsmetode 
 1. Der skal være mindst 3 projekter samlet i netop én Visual Studio solution:  
-   1. et klassebibliotek med funktionaliteten i form af alle de nødvendige klasser til at implementere Ladeskabssystemet 
-   1. et klassebibliotek med unit test af ovenstående klasser 
-   1. et console app projekt, der bruger klasserne til at implementere en simpel app, der demonstrerer hvordan de skal sættes sammen og et simpelt forløb. Mere avancerede apps eller et GUI, er også tilladt, men giver ikke bedre bedømmelse 
-1. Som udgangspunkt forudsættes at der bruges .Net version 8 eller nyere, for alle projekter 
-1. Jeres GitLab repository skal være internal, med tilstrækkelig læse adgang for os 
+   1. Et klassebibliotek med funktionaliteten i form af alle de nødvendige klasser til at implementere Ladeskabssystemet 
+   1. Et NUnit testprojekt med unit test af ovenstående klasser 
+   1. Et console app projekt, der bruger klasserne til at implementere en simpel app, der demonstrerer hvordan de skal sættes sammen og et simpelt forløb. Mere avancerede apps eller et GUI, er også tilladt, men giver ikke bedre bedømmelse 
+1. Som udgangspunkt forudsættes at der bruges .Net version 10 eller nyere, for alle projekter 
+1. Jeres visibility for jeres GitLab repository skal være **internal**
+1. Benyt Git's default merge strategi, undgå squash og rebase, da vi gerne vil kunne se en fuld Git historik 
 1. Commit-historikken på jeres repo skal vise, at I har fordelt arbejdet imellem jer, således at det er tydeligt, at der er bidrag fra alle gruppens medlemmer 
 1. Commit-historikken på jeres repo skal vise, at I har prøvet at arbejde med Continuous Integration, med en høj frekvens af commits og push'es 
 
