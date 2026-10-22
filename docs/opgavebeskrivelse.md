@@ -18,7 +18,7 @@ Denne opgave omhandler design, implementering og test af software til et ladeska
 
 En principskitse af ladeskabet er vist herunder: 
 
-![](images/Ladeskab.png)
+![](../images/Ladeskab.png)
 
 *Figur 1: Principskitse af ladeskabet*
 
@@ -59,7 +59,7 @@ Displayet har 2 områder, der kan anvendes til henholdsvis brugerinstruktioner o
 
 Et løseligt udkast til et design (*ikke* et UML klassediagram) er givet nedenfor: 
 
-![](images/DesignDrawing.png)
+![](../images/DesignDrawing.png)
 *Figur 2: Designskitse* 
 
 Klasserne Door, Display, RFIDReader, USBCharger på Figur 2 repræsenterer komponenter af samme navne på Figur 1. Log File kan ikke ses fysisk udefra, men er indbygget i systemet, og **logging til en fil er en del** af denne opgave. Klassen StationControl er controller-klassen for systemet. ChargeControl er controller-klassen for opladningen. Læg mærke til, at controller-klassen ChargeControl ikke er den samme som boundary-klassen USBCharger. 
@@ -68,12 +68,12 @@ Lynsymbolerne indikerer at her tænkes brugt en implementation af Observer Patte
 
 Klassernes interaktion er vist på Figur 3. Selve opladningssekvensen er ikke vist. Find ud af hvilke klasser, der indgår i den, og tegn selv et sekvensdiagram. 
 
-![](images/SekvensDiagram.png)
+![](../images/SekvensDiagram.png)
 *Figur 3: Sekvensdiagram for anvendelse af ladeskabet* 
 
 Klassen StationControl’s virkemåde kan beskrives vha. et UML tilstandsdiagram som følger: 
 
-![](images/StationControlSTM.png)
+![](../images/StationControlSTM.png)
 *Figur 4: State Machine diagram af StationControl* 
 
 Et løseligt udkast til dele af implementeringen af klassen StationControl er givet i filen StationControl.Handout.cs. 
@@ -181,7 +181,7 @@ public interface IUsbCharger
 ``` 
 `CurrentEventArgs` og interfacet `IUsbCharger` **skal** I bruge til jeres design og kode. 
 
-!["System.EventArgs"](images/IUsbChargerCD.png)
+!["System.EventArgs"](../images/IUsbChargerCD.png)
 *Figur 5 Klassediagram for hjælpekode til USB Chargeren* 
 
 Derudover ligger der en fil *UsbChargerSimulator.cs* som implementerer en simuleret version af `IUsbCharger`. Den simulerer opladning, forbindelse og overload. Den skal benyttes i konsolapplikationen, da vi jo ikke har en rigtig USB lader til rådighed. Den skal **ikke** bruges som fake til test af klasser som er afhængige af `IUsbCharger`.
