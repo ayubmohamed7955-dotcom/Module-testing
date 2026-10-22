@@ -405,7 +405,7 @@ Coverage måles i pipelinen med **coverlet** og samles til en HTML-rapport med *
 
 **Resultat:** 100 % line coverage og 100 % branch coverage for alle klasser, vi selv har skrevet.
 
-`![Coverage-rapport](images/image.png)`
+docs/images/coverage_report.png
 
 **Hvordan vi har brugt coverage:** Rapporten blev brugt aktivt under udviklingen. Gule markeringer viste forgreninger, der kun var testet den ene vej, og det pegede direkte på manglende testcases. Rapporten viste også, at den eneste klasse under 100 % branch coverage var den udleverede `UsbChargerSimulator` (84,6 %), hvilket førte til beslutningen om at undtage den.
 
@@ -434,7 +434,7 @@ Pipelinen er defineret i én fil, `.gitlab-ci.yml`, og kører på hver push til 
 
 **Arbejdsgang:** Hver opgave blev lavet på sin egen feature-branch (`feature/...`) og merget til `main` via merge request med Gits default merge-strategi (ingen squash eller rebase), så den fulde historik er bevaret. En merge request blev først merget, når pipelinen var grøn.
 
-> **TODO:** Indsæt skærmbillede af pipeline-oversigten eller testfanen: `![Pipeline](images/pipeline.png)`
+docs/images/pipeline.png
 
 ---
 
