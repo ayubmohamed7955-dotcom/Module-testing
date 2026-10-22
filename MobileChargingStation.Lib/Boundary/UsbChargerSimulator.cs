@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Timers;
 using MobileChargingStation.Lib.Boundary.Interfaces;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MobileChargingStation.Lib.Boundary;
 
+[ExcludeFromCodeCoverage]
 public class UsbChargerSimulator : IUsbCharger
 {
     // Constants
