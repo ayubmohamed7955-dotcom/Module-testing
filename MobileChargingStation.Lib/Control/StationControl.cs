@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MobileChargingStation.Lib.Boundary.Interfaces;
+using MobileChargingStation.Lib.Interfaces;
 
 namespace MobileChargingStation.Lib.Control;
 
@@ -35,7 +36,7 @@ public class StationControl
         {
             case MobileChargerState.Available:
                 // Check for ladeforbindelse
-                if (_charger.Connected)
+                if (_charger.IsConnected())
                 {
                     _door.LockDoor();
                     _charger.StartCharge();

@@ -1,0 +1,41 @@
+image: mcr.microsoft.com/dotnet/sdk:10.0
+
+variables:
+  DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+  DOTNET_NOLOGO: "1"
+
+stages:
+  - test
+
+test:
+  stage: test
+  script:
+    - dotnet restore
+    - dotnet build --no-restore
+    # Kør alle tests: JUnit-rapport til GitLab + Cobertura-coverage via coverlet
+    - >
+      dotnet test --no-build
+      --logger "junit;LogFilePath=$CI_PROJECT_DIR/TestResults/{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
+      --collect:"XPlat Code Coverage"
+      --results-directory "$CI_PROJECT_DIR/TestResults"
+    # Saml coverage til en HTML-rapport og en samlet Cobertura-fil
+    - dotnet tool install --global dotnet-reportgenerator-globaltool
+    - export PATH="$PATH:$HOME/.dotnet/tools"
+    - >
+      reportgenerator
+      -reports:"$CI_PROJECT_DIR/TestResults/*/coverage.cobertura.xml"
+      -targetdir:"$CI_PROJECT_DIR/coverage-report"
+      -reporttypes:"Html;TextSummary;Cobertura"
+    - cat coverage-report/Summary.txt
+  # Viser coverage-procenten i pipeline- og MR-oversigten
+  coverage: '/Line coverage: \d+(?:\.\d+)?%/'
+  artifacts:
+    when: always
+    expire_in: 30 days
+    paths:
+      - coverage-report/
+    reports:
+      junit: TestResults/*-test-result.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage-report/Cobertura.xml

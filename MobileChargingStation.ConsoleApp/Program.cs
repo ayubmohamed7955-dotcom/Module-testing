@@ -25,11 +25,13 @@ class Program
                     break;
 
                 case 'O':
-                    door.OnDoorOpen();
+                    // TODO: aktiveres når Door er implementeret
+                    // door.OnDoorOpen();
                     break;
 
                 case 'C':
-                    door.OnDoorClose();
+                    // TODO: aktiveres når Door er implementeret
+                    // door.OnDoorClose();
                     break;
 
                 case 'R':
@@ -37,7 +39,8 @@ class Program
                     string idString = System.Console.ReadLine();
 
                     int id = Convert.ToInt32(idString);
-                    rfidReader.OnRfidRead(id);
+                    // TODO: aktiveres når RFIDReader er implementeret
+                    // rfidReader.OnRfidRead(id);
                     break;
 
                 default:
