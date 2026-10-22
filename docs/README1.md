@@ -472,7 +472,6 @@ Pipelinen er defineret i én fil, `.gitlab-ci.yml`, og kører på hver push til 
 
 **Konsol i stedet for et rigtigt display.** `Display` skriver direkte til `Console`. Det er testbart med `Console.SetOut()`, men tests der omdirigerer konsollen, kan ikke køre parallelt med andre tests, der bruger konsollen. Det er ikke et problem her, fordi NUnit som standard ikke kører tests parallelt, men en `ITextOutput`-abstraktion ville have fjernet afhængigheden helt.
 
-> **TODO (fælles):** Tilføj evt. flere punkter, I ville gøre anderledes.
 
 ---
 
@@ -481,8 +480,8 @@ Pipelinen er defineret i én fil, `.gitlab-ci.yml`, og kører på hver push til 
 | Medlem | Opgaver |
 |---|---|
 | Mohamad | Repo, CI-pipeline, interfaces, `ChargeControl` + tests, `Program.cs`, dokumentation af ChargeControl, coverage og CI |
-| [Person 2] | `StationControl` + tests, klasse-, tilstands- og sekvensdiagrammer, designrefleksion |
-| [Person 3] | `Door`, `RfidReader`, `Display`, `LogFile` + tests, rod-README |
+| Ayub | `StationControl` + tests, klasse-, tilstands- og sekvensdiagrammer, designrefleksion |
+| Mohamed | `Door`, `RfidReader`, `Display`, `LogFile` + tests, rod-README |
 
 > **TODO (fælles):** Skriv navne i tabellen og en refleksion – *hvordan, hvorfor, fordele og ulemper*:
 > - Interfaces blev lavet først og lagt på `main`, så alle kunne arbejde parallelt mod fakes. Hvordan virkede det?
