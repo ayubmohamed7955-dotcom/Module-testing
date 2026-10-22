@@ -4,15 +4,13 @@
 
 | Navn | Studienummer |
 | --- | --- |
-| Mohamad … | au…… |
-| … | au…… |
-| … | au…… |
+| Mohamad Saleh Yassine | au759451 |
+| Ayub Mohamed Yusuf | au781514 |
+| Mohamed Abdirahman Hassan Mahamod | au758453 |
 
 **GitLab-repository:** https://gitlab.au.dk/swt10/module-testing
 
 **Dokumentation:** [docs/README.md](docs/README.md)
-
-Opgavebeskrivelsen ligger i [docs/opgavebeskrivelse.md](docs/opgavebeskrivelse.md).
 
 ## Kør tests
 
