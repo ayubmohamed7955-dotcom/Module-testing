@@ -405,7 +405,7 @@ Coverage måles i pipelinen med **coverlet** og samles til en HTML-rapport med *
 
 **Resultat:** 100 % line coverage og 100 % branch coverage for alle klasser, vi selv har skrevet.
 
-![Screenshot af coverage rapporten](docs/images/coverage_report.png)
+![Screenshot af coverage rapporten](images/coverage_report.png)
 
 **Hvordan vi har brugt coverage:** Rapporten blev brugt aktivt under udviklingen. Gule markeringer viste forgreninger, der kun var testet den ene vej, og det pegede direkte på manglende testcases. Rapporten viste også, at den eneste klasse under 100 % branch coverage var den udleverede `UsbChargerSimulator` (84,6 %), hvilket førte til beslutningen om at undtage den.
 
@@ -434,7 +434,7 @@ Pipelinen er defineret i én fil, `.gitlab-ci.yml`, og kører på hver push til 
 
 **Arbejdsgang:** Hver opgave blev lavet på sin egen feature-branch (`feature/...`) og merget til `main` via merge request med Gits default merge-strategi (ingen squash eller rebase), så den fulde historik er bevaret. En merge request blev først merget, når pipelinen var grøn.
 
-![Pipeline fra GitLab](docs/images/pipeline.png)
+![Pipeline fra GitLab](images/pipeline.png)
 
 ---
 
@@ -483,18 +483,40 @@ Pipelinen er defineret i én fil, `.gitlab-ci.yml`, og kører på hver push til 
 | Ayub | `StationControl` + tests, klasse-, tilstands- og sekvensdiagrammer, designrefleksion |
 | Mohamed | `Door`, `RfidReader`, `Display`, `LogFile` + tests, rod-README |
 
-> **TODO (fælles):** Skriv navne i tabellen og en refleksion – *hvordan, hvorfor, fordele og ulemper*:
-> - Interfaces blev lavet først og lagt på `main`, så alle kunne arbejde parallelt mod fakes. Hvordan virkede det?
-> - Fordeling efter klasser: fordel – tydeligt ejerskab og få konflikter; ulempe – ujævn arbejdsbyrde, og man kender mindre til de andres kode.
-> - Hvordan koordinerede I (chat, møder)?
+**Hvordan:** Mohamad lavede først repo, pipeline og alle interfaces og lagde dem på `main`. Derefter blev resten fordelt efter klasser, så hver person havde ansvar for kode, tests og dokumentation af sine egne klasser. Alle arbejdede på deres egen feature-branch (`feature/charge-control`, `feature/station-control`, `feature/boundary`) og mergede til `main` via merge requests. Til sidst blev dokumentationen samlet i én fil, og de fælles afsnit blev skrevet sammen.
+
+**Hvorfor:** Når interfaces lå på `main` fra starten, kunne alle arbejde parallelt. `StationControl` kunne fx testes færdigt med NSubstitute-fakes af `IDoor` og `IRfidReader`, før de rigtige `Door` og `RfidReader` fandtes. Fordeling efter klasser gav hver person en afgrænset opgave, og det sikrede, at alle har bidraget med både kode, tests og dokumentation.
+
+**Fordele:**
+- Tydeligt ejerskab. Alle vidste, hvilke filer de skulle arbejde i.
+- Få merge-konflikter. De tre feature-branches kunne merges ind i `main` uden konflikter, fordi de rørte hver sine filer.
+- Interfaces som fælles kontrakt gjorde, at klasserne passede sammen ved første merge.
+
+**Ulemper:**
+- Arbejdsbyrden var ujævn. `StationControl` var én stor klasse, mens boundary-delen var flere små, og Mohamad havde både infrastruktur, en controller og konsolappen.
+- Man kender mindre til de andres kode, fordi hver person primært har arbejdet i sine egne klasser.
+- Dokumentationen blev først skrevet i separate filer pr. person og skulle bagefter samles. Det gav dobbelt arbejde og en periode, hvor der lå flere versioner af samme tekst.
+
+**Hvad vi ville gøre anderledes:** Aftale strukturen for `docs/README.md` fra starten, så alle skriver direkte i den rigtige fil, og lade en anden person reviewe hver merge request, så alle kender mere af koden.
 
 ---
 
 ## 8. Refleksion over fælles repository og CI
 
-> **TODO (fælles):** Observationer, fordele og ulemper. Konkrete eksempler at tage udgangspunkt i:
-> - Pipelinen blev lavet som det første, så alle commits er testet.
-> - Det udleverede skelet kompilerede ikke (manglende `IDoor`/`IChargeControl`, `door`/`rfidReader` i `Program.cs`) – det blev løst ved at lave interfaces først.
-> - Det første push gik til det udleverede repo i stedet for gruppens eget (403-fejl), og gruppens repo havde en README fra oprettelsen, så historikkerne skulle flettes med `--allow-unrelated-histories`.
-> - Fordele: fejl blev fanget før merge, coverage var synlig for alle, merge requests gav overblik.
-> - Ulemper: ventetid på pipelinen, ekstra overhead ved branches og merge requests for små ændringer.
+**Observationer:**
+- Pipelinen blev sat op som noget af det første, så alle commits på alle branches er bygget og testet. Testresultater og coverage kunne ses direkte på GitLab ved hver pipeline og merge request.
+- Det udleverede skelet kompilerede ikke, fordi `IDoor`, `IChargeControl` og variablerne i `Program.cs` manglede. Det blev løst ved at lave interfaces og en byggende solution først, så pipelinen kunne blive grøn fra starten.
+- Det første push gik til det udleverede repo i stedet for gruppens eget (403-fejl), og gruppens repo havde en README fra oprettelsen. Historikkerne skulle derfor flettes med `--allow-unrelated-histories`.
+- Mod slutningen arbejdede flere direkte på `main` samtidig med dokumentationen. Det gav afviste pushes ("rejected – fetch first"), fordi en anden havde pushet imens. Løsningen var altid at køre `git pull origin main` lige før `git push`.
+- Fejl i filstrukturen, fx en billedmappe i `docs/docs/images` og en dublet af `docs/README.md`, blev opdaget, fordi alle løbende hentede og kiggede på hinandens ændringer.
+
+**Fordele:**
+- Fejl blev fanget før merge. En merge request blev først merget, når pipelinen var grøn.
+- Coverage-rapporten var synlig for alle og viste konkret, hvilke grene der manglede tests.
+- Merge requests og commit-historikken gav overblik over, hvem der havde lavet hvad.
+- Gits default merge-strategi bevarede hele historikken, så alle bidrag er synlige.
+
+**Ulemper:**
+- Ventetid på pipelinen ved hver push, især fordi de udleverede tests af `UsbChargerSimulator` bruger timere og tager flere sekunder.
+- Branches og merge requests giver ekstra overhead ved små ændringer som rettelser i dokumentationen.
+- Git kræver disciplin. Tastefejl i branchnavne, glemte pulls og en lokal branch, der fulgte det forkerte remote, kostede tid undervejs.
