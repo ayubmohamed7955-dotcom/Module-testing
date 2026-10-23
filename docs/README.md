@@ -483,7 +483,7 @@ Pipelinen er defineret i én fil, `.gitlab-ci.yml`, og kører på hver push til 
 | Ayub | `StationControl` + tests, klasse-, tilstands- og sekvensdiagrammer, designrefleksion |
 | Mohamed | `Door`, `RfidReader`, `Display`, `LogFile` + tests, rod-README |
 
-**Hvordan:** Mohamad lavede først repo, pipeline og alle interfaces og lagde dem på `main`. Derefter blev resten fordelt efter klasser, så hver person havde ansvar for kode, tests og dokumentation af sine egne klasser. Alle arbejdede på deres egen feature-branch (`feature/charge-control`, `feature/station-control`, `feature/boundary`) og mergede til `main` via merge requests. Til sidst blev dokumentationen samlet i én fil, og de fælles afsnit blev skrevet sammen.
+**Hvordan:** Først blev repo, pipeline og alle interfaces lavet og lagt på `main`. Derefter blev resten fordelt efter klasser, så hver person havde ansvar for kode, tests og dokumentation af sine egne klasser. Alle arbejdede på deres egen feature-branch (`feature/charge-control`, `feature/station-control`, `feature/boundary`) og mergede til `main` via merge requests. Til sidst blev dokumentationen samlet i én fil, og de fælles afsnit blev skrevet sammen.
 
 **Hvorfor:** Når interfaces lå på `main` fra starten, kunne alle arbejde parallelt. `StationControl` kunne fx testes færdigt med NSubstitute-fakes af `IDoor` og `IRfidReader`, før de rigtige `Door` og `RfidReader` fandtes. Fordeling efter klasser gav hver person en afgrænset opgave, og det sikrede, at alle har bidraget med både kode, tests og dokumentation.
 
@@ -493,9 +493,9 @@ Pipelinen er defineret i én fil, `.gitlab-ci.yml`, og kører på hver push til 
 - Interfaces som fælles kontrakt gjorde, at klasserne passede sammen ved første merge.
 
 **Ulemper:**
-- Arbejdsbyrden var ujævn. `StationControl` var én stor klasse, mens boundary-delen var flere små, og Mohamad havde både infrastruktur, en controller og konsolappen.
+- Opgaverne var forskellige af natur og derfor svære at sammenligne. Nogle bestod af én klasse med meget logik, andre af flere mindre klasser eller af infrastruktur og opsætning. Det gjorde det svært at vurdere på forhånd, hvor lang tid hver del ville tage.
 - Man kender mindre til de andres kode, fordi hver person primært har arbejdet i sine egne klasser.
-- Dokumentationen blev først skrevet i separate filer pr. person og skulle bagefter samles. Det gav dobbelt arbejde og en periode, hvor der lå flere versioner af samme tekst.
+- Dokumentationen blev først skrevet i separate filer og skulle bagefter samles. Det gav ekstra arbejde og en periode, hvor der lå flere versioner af samme tekst.
 
 **Hvad vi ville gøre anderledes:** Aftale strukturen for `docs/README.md` fra starten, så alle skriver direkte i den rigtige fil, og lade en anden person reviewe hver merge request, så alle kender mere af koden.
 
